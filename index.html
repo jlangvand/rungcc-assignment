@@ -1,3 +1,19 @@
+<!--
+ !-- Copyright (C) 2021  Joakim Skogø Langvand
+ !--
+ !-- This program is free software: you can redistribute it and/or modify
+ !-- it under the terms of the GNU Affero General Public License as
+ !-- published by the Free Software Foundation, either version 3 of the
+ !-- License, or (at your option) any later version.
+ !--
+ !-- This program is distributed in the hope that it will be useful,
+ !-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+ !-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ !-- GNU Affero General Public License for more details.
+ !--
+ !-- You should have received a copy of the GNU Affero General Public License
+ !-- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,7 +24,8 @@
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-    <div class="container"><div class="row">
+    <div class="container">
+      <div class="row">
         <div class="col-12">
           <h1>RUN GCC</h1>
           <p>Compile and run source code in your browser!</p>
@@ -26,22 +43,25 @@
             </ul>
           </div>
         </div>
-        
-      <div class="col-lg-6">
-        <form method="post">
-          <div class="form-group">
-            <textarea class="form-control" aria-label="C++ source code" id="source" name="source" rows="25"><%source></textarea>
+
+        <div class="row gy-1">
+          <div class="col-lg-6">
+            <form method="post">
+              <div class="form-group">
+                <textarea class="form-control" aria-label="C++ source code" id="source" name="source" rows="25"><%source></textarea>
+              </div>
+              <input type="hidden" name="lang" value="cpp">
+              <label for="cmake-flags" class="form-label">CMake flags</label>
+              <div class="row">
+                <div class="col-10">
+                  <input class="form-control" type="text" placeholder="Not yet implemented..." aria-label="CMake flags" id="cmake-flags" name="cmake-flags" readonly>
+                </div>
+                <div class="col-2">
+                  <button type="submit" class="btn btn-primary" style="width: 100%">Run</button>
+                </div>
+              </div>
           </div>
-          <input type="hidden" name="lang" value="cpp">
-          <label for="cmake-flags" class="form-label">CMake flags</label>
-          <div class="row">
-            <div class="col-10">
-              <input class="form-control" type="text" placeholder="Not yet implemented..." aria-label="CMake flags" id="cmake-flags" name="cmake-flags" readonly>
-            </div>
-            <div class="col-2">
-              <button type="submit" class="btn btn-primary" style="width: 100%">Run</button>
-            </div>
-          </div>
+        </div>
         </form>
       </div>
 
@@ -49,19 +69,27 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
+              <div class="card-header">
+                Build output
+              </div>
               <div class="card-body">
-                <div class="card-title">Build output</div>
                 <div class="card-text"><code><pre><%setup></pre></code></div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="row gy-1">
           <div class="col-12">
             <div class="card">
+              <div class="card-header">
+                Program output
+              </div>
               <div class="card-body">
-                <div class="card-title">Program output</div>
                 <div class="card-text"><code><pre><%output></pre></code></div>
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div></div>
 
