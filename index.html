@@ -2,19 +2,75 @@
 <html lang="en">
   <head>
     <title>RUN GCC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   </head>
 
   <body>
-    <h1>Run C++ in browser</h1>
-  <form method="post">
-    <textarea name="source"><%source></textarea>
-    <button name="run">Run</button>
-  </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-  <h2>Build output</h2>
-  <code><pre><%setup></pre></code>
-  <h2>Program output</h2>
-  <code><pre><%output></pre></code>
-  
+    <div class="container"><div class="row">
+        <div class="col-12">
+          <h1>RUN GCC</h1>
+          <p>Compile and run source code in your browser!</p>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">C++</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" aria-disabled="true">Java</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      <div class="col-lg-6">
+        <form method="post">
+          <div class="form-group">
+            <textarea class="form-control" aria-label="C++ source code" id="source" name="source" rows="25"><%source></textarea>
+          </div>
+          <input type="hidden" name="lang" value="cpp">
+          <label for="cmake-flags" class="form-label">CMake flags</label>
+          <div class="row">
+            <div class="col-10">
+              <input class="form-control" type="text" placeholder="Not yet implemented..." aria-label="CMake flags" id="cmake-flags" name="cmake-flags" readonly>
+            </div>
+            <div class="col-2">
+              <button type="submit" class="btn btn-primary" style="width: 100%">Run</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">Build output</div>
+                <div class="card-text"><code><pre><%setup></pre></code></div>
+              </div>
+            </div>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">Program output</div>
+                <div class="card-text"><code><pre><%output></pre></code></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+
+      <div class="row gy-3">
+        <div class="col-12 footer">
+          <figure class="text-center text-muted">
+            <p>Copyright &copy; 2021 Joakim Skog&oslash; Langvand <a href="http://jlangvand.no">@jlangvand</a></p>
+          </figure>
+        </div>
+      </div>
   </body>
 </html>
