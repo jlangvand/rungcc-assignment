@@ -35,27 +35,27 @@ root_path = os.path.dirname(os.path.realpath('__file__'))
 cpp_source_file = os.path.join(root_path, "sandbox/src/main.cpp")
 
 logging.getLogger().addHandler(logging.StreamHandler())
+logging.getLogger().setLevel(logging.DEBUG)
 
 
 def on_tcp_read(client: pyuv.TCP, data, error):
     if not data:
-        print("Client disconnected, closing connection")
+        logging.info("No data received, closing connection")
         client.close()
         clients.remove(client)
         return
-    print(f"Got data [{data}]")
     req = data.split(b'\r\n')[0].split(b'\x20')
     setup = ""
     output = ""
+    logging.debug("Got a %s request", req[0])
     with open("index.html", "r") as fh:
         index = fh.read()
     if req[0] == b'POST':
         params = data.split(b'\r\n')[-1]
-        print(params)
         source = params.split(b'&')[0].split(b'=')[1].decode("utf-8")
-        print(source)
         source = replace_special_chars(source)
         with open(cpp_source_file, "w") as fh:
+            logging.debug("Loading template file")
             fh.write(source)
         cmd_setup = ["docker", "build", "-t", "myapp", "sandbox"]
         cmd_run = ["docker", "run", "myapp"]
@@ -83,19 +83,21 @@ def on_tcp_read(client: pyuv.TCP, data, error):
 
 def on_tcp_connection(server: pyuv.TCP, error):
     client = pyuv.TCP(server.loop)
+    logging.info("Client connected")
     server.accept(client)
     clients.append(client)
     client.start_read(on_tcp_read)
 
 
 def signal_callback(handle, signum):
+    logging.debug("signal_callback called")
     [c.close() for c in clients]
     signal_h.close()
     server.close()
 
 
 def main():
-    logging.info("Starting server")
     server.listen(on_tcp_connection)
+    logging.info("Listening for connections on %s:%d", HOSTNAME, PORT)
     signal_h.start(signal_callback, signal.SIGINT)
     loop.run()
