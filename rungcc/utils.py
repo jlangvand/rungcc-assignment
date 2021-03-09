@@ -45,8 +45,11 @@ def replace_special_chars(src: str) -> str:
 
 
 def html_safe(src: str) -> str:
+    src = src.replace("&", "&amp;")
     src = src.replace("æ", "&aelig;")
     src = src.replace("ø", "&oring;")
     src = src.replace("å", "&aelig")
     src = src.replace("©", "&copy;")
+    src = src.replace("<", "&lt;")
+    src = src.replace(">", "&gt;")
     return src
